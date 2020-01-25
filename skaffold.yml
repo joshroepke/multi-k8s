@@ -16,6 +16,22 @@ build:
           dest: . 
         - src: '**/*.html'
           dest: . 
+    - image: joshroepke/multi-server
+      context: server
+      docker: 
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+        - src: '**/*.js'
+          dest: . 
+    - image: joshroepke/multi-worker
+      context: worker
+      docker: 
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+        - src: '**/*.js'
+          dest: . 
 deploy: 
   kubectl:
     manifests:
